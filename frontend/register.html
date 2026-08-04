@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account</title>
+
+<link rel="stylesheet" href="css/register.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<img src="image/logo.png" class="logo">
+
+<h2>Create Account</h2>
+
+<p>Create your account to continue</p>
+
+<form id="registerForm">
+
+<div class="input-box">
+<i class="fa fa-user"></i>
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+</div>
+
+<div class="input-box">
+<i class="fa fa-envelope"></i>
+<input
+type="email"
+id="email"
+placeholder="Email"
+required>
+</div>
+
+<div class="input-box">
+<i class="fa fa-phone"></i>
+<input
+type="tel"
+id="phone"
+placeholder="Mobile Number"
+maxlength="10"
+required>
+</div>
+
+<div class="input-box">
+
+<i class="fa fa-lock"></i>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+required>
+
+<span id="toggle1">
+<i class="fa fa-eye"></i>
+</span>
+
+</div>
+
+<div class="input-box">
+
+<i class="fa fa-lock"></i>
+
+<input
+type="password"
+id="confirm"
+placeholder="Confirm Password"
+required>
+
+<span id="toggle2">
+<i class="fa fa-eye"></i>
+</span>
+
+</div>
+
+<div class="strength">
+
+<div id="strengthBar"></div>
+
+</div>
+
+<button type="submit">
+
+Create Account
+
+</button>
+
+</form>
+
+<div class="links">
+
+<a href="login.html">
+
+Already have an account?
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/register.js"></script>
+
+</body>
+</html>

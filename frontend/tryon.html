@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Virtual Try-On</title>
+
+<link rel="stylesheet" href="css/tryon.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Virtual Try-On</h1>
+
+<div class="tryon-container">
+
+<div class="box">
+
+<h2>Your Photo</h2>
+
+<img id="userPreview"
+src="images/user-placeholder.png"
+alt="User">
+
+<input
+type="file"
+id="userImage"
+accept="image/*">
+
+</div>
+
+<div class="box">
+
+<h2>Selected Dress</h2>
+
+<img id="dressPreview">
+
+</div>
+
+<div class="box">
+
+<h2>Result</h2>
+
+<img id="resultPreview"
+src="images/user-placeholder.png">
+
+</div>
+
+</div>
+
+<button id="generateBtn">
+
+Generate Try-On
+
+</button>
+
+<div id="loading">
+
+<img src="images/loading.gif">
+
+<p>Generating AI Image...</p>
+
+</div>
+
+</div>
+
+<script src="js/tryon.js"></script>
+
+</body>
+</html>

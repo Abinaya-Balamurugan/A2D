@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Select Dress</title>
+
+<link rel="stylesheet" href="css/dress.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Select Your Dress</h1>
+
+<input
+type="text"
+id="search"
+placeholder="Search Dress...">
+
+</header>
+
+<div class="category">
+
+<button onclick="filterDress('All')">All</button>
+
+<button onclick="filterDress('Men')">Men</button>
+
+<button onclick="filterDress('Women')">Women</button>
+
+<button onclick="filterDress('Traditional')">Traditional</button>
+
+<button onclick="filterDress('Western')">Western</button>
+
+</div>
+
+<div id="dressContainer" class="grid">
+
+</div>
+
+<script src="js/dress.js"></script>
+
+</body>
+</html>
