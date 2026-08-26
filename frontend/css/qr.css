@@ -1,0 +1,239 @@
+/* ===========================
+   QR Scanner Page
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    min-height:100vh;
+}
+
+header{
+    width:100%;
+    background:#163b84;
+    color:#fff;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo h2{
+    font-size:26px;
+}
+
+.back{
+    text-decoration:none;
+    color:#fff;
+    background:#0d2555;
+    padding:10px 18px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.back:hover{
+    background:#09204a;
+}
+
+.container{
+    width:95%;
+    max-width:1300px;
+    margin:30px auto;
+    text-align:center;
+}
+
+.container h1{
+    color:#163b84;
+    margin-bottom:10px;
+    font-size:35px;
+}
+
+.container p{
+    color:#555;
+    margin-bottom:25px;
+    font-size:18px;
+}
+
+.scanner-box{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+#reader{
+    width:100%;
+}
+
+.or{
+    margin:25px;
+    font-size:22px;
+    font-weight:bold;
+    color:#163b84;
+}
+
+.input-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.input-box input{
+    width:650px;
+    max-width:100%;
+    padding:15px;
+    border-radius:10px;
+    border:2px solid #163b84;
+    outline:none;
+    font-size:16px;
+}
+
+.input-box button{
+    padding:15px 25px;
+    border:none;
+    background:#163b84;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:16px;
+}
+
+.input-box button:hover{
+    background:#0d2555;
+}
+
+.iframe-container{
+    margin-top:35px;
+    width:100%;
+    height:700px;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+#websiteFrame{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.bottom-buttons{
+    width:100%;
+    text-align:center;
+    margin:40px 0;
+}
+
+#gotoTryOn{
+    padding:16px 40px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    transition:.3s;
+}
+
+#gotoTryOn:hover{
+    background:#208537;
+}
+
+@media(max-width:992px){
+
+.container h1{
+    font-size:30px;
+}
+
+.input-box{
+    flex-direction:column;
+}
+
+.input-box input{
+    width:100%;
+}
+
+.input-box button{
+    width:100%;
+}
+
+.iframe-container{
+    height:500px;
+}
+
+}
+
+@media(max-width:768px){
+
+header{
+    justify-content:center;
+    gap:15px;
+    text-align:center;
+}
+
+.logo h2{
+    font-size:22px;
+}
+
+.container h1{
+    font-size:26px;
+}
+
+.container p{
+    font-size:16px;
+}
+
+.scanner-box{
+    padding:15px;
+}
+
+.iframe-container{
+    height:400px;
+}
+
+#gotoTryOn{
+    width:90%;
+}
+
+}
+
+@media(max-width:480px){
+
+.logo h2{
+    font-size:20px;
+}
+
+.container h1{
+    font-size:22px;
+}
+
+.or{
+    font-size:18px;
+}
+
+.input-box input{
+    font-size:14px;
+}
+
+.input-box button{
+    font-size:15px;
+}
+
+.iframe-container{
+    height:350px;
+}
+
+}

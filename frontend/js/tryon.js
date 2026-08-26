@@ -1,107 +1,192 @@
-// ===============================
-// AI Virtual Dressing Room
-// tryon.js
-// ===============================
+generateBtn.addEventListener("click", async function () {
 
-// Selected Dress
+    console.log("================================");
+    console.log("GENERATE BUTTON CLICKED");
+    console.log("================================");
 
-const dressName = localStorage.getItem("selectedDress");
+    const userFile = upload.files[0];
 
-const dressPreview = document.getElementById("dressPreview");
-
-if (dressName) {
-
-    dressPreview.src = "images/dresses/" + dressName;
-
-}
-
-// User Image Preview
-
-const upload = document.getElementById("userImage");
-
-const userPreview = document.getElementById("userPreview");
-
-upload.addEventListener("change", function(e){
-
-    const file = e.target.files[0];
-
-    if(file){
-
-        userPreview.src = URL.createObjectURL(file);
-
-    }
-
-});
-
-// Generate Try-On
-
-document.getElementById("generateBtn")
-
-.addEventListener("click", async ()=>{
-
-    const file = upload.files[0];
-
-    if(!file){
-
+    if (!userFile) {
         alert("Please upload your photo.");
-
         return;
-
     }
 
-    document.getElementById("loading").style.display="block";
+    if (!dressName) {
+        alert("Please select a dress first.");
+        return;
+    }
 
-    try{
+    try {
 
-        const formData = new FormData();
+        loading.style.display = "block";
 
-        // User Image
+        generateBtn.disabled = true;
+        generateBtn.textContent = "Generating...";
 
-        formData.append("userImage", file);
 
-        // Dress Name
+        // =================================================
+        // GET DRESS IMAGE
+        // =================================================
 
-        formData.append("dressName", dressName);
+        const dressPath =
+            "image/dresses/" + dressName;
 
-        const response = await fetch(
+        console.log("Dress path:", dressPath);
 
-            "http://127.0.0.1:5001/tryon",
 
-            {
+        const dressResponse =
+            await fetch(dressPath);
 
-                method:"POST",
 
-                body:formData
+        if (!dressResponse.ok) {
 
-            }
+            throw new Error(
+                "Dress image not found: " + dressPath
+            );
 
+        }
+
+
+        const dressBlob =
+            await dressResponse.blob();
+
+
+        const dressFile =
+            new File(
+                [dressBlob],
+                dressName,
+                {
+                    type:
+                    dressBlob.type || "image/jpeg"
+                }
+            );
+
+
+        console.log(
+            "Dress file created:",
+            dressFile
         );
 
-        const result = await response.json();
 
-        document.getElementById("loading").style.display="none";
+        // =================================================
+        // FORM DATA
+        // =================================================
 
-        if(result.success){
+        const formData =
+            new FormData();
 
-            document.getElementById("resultPreview").src=result.image;
+
+        formData.append(
+            "userImage",
+            userFile
+        );
+
+
+        formData.append(
+            "dressImage",
+            dressFile
+        );
+
+
+        console.log(
+            "Sending user image..."
+        );
+
+        console.log(
+            "Sending dress image..."
+        );
+
+
+        // =================================================
+        // SEND TO FLASK
+        // =================================================
+
+        const response =
+            await fetch(
+                "http://127.0.0.1:5001/tryon",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "Flask response:",
+            result
+        );
+
+
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        if (result.success) {
+
+            resultPreview.src =
+                result.image +
+                "?t=" +
+                Date.now();
+
+
+            resultPreview.style.display =
+                "block";
+
+
+            alert(
+                "AI Try-On generated successfully!"
+            );
 
         }
 
-        else{
+        // =================================================
+        // ERROR
+        // =================================================
 
-            alert(result.message);
+        else {
+
+            alert(
+                "Try-On failed:\n\n" +
+                result.message
+            );
 
         }
+
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(error);
+        console.error(
+            "TRY-ON ERROR:",
+            error
+        );
 
-        document.getElementById("loading").style.display="none";
 
-        alert("Cannot connect to AI Server.");
+        alert(
+            "Try-On failed:\n\n" +
+            error.message
+        );
+
+    }
+
+
+    finally {
+
+        loading.style.display =
+            "none";
+
+
+        generateBtn.disabled =
+            false;
+
+
+        generateBtn.textContent =
+            "Generate Try-On";
 
     }
 

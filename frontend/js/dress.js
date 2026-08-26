@@ -5,7 +5,7 @@ id:1,
 name:"Blue Kurti",
 price:"₹1499",
 category:"Women",
-image:"frontend/image/dress1.jpg"
+image:"image/dress1.jpg"
 },
 
 {
@@ -13,7 +13,7 @@ id:2,
 name:"Men Shirt",
 price:"₹999",
 category:"Men",
-image:"frontend/image/dress2.jpg"
+image:"image/dress2.jpg"
 },
 
 {
@@ -29,7 +29,7 @@ id:4,
 name:"Western Dress",
 price:"₹1999",
 category:"Western",
-image:"images/dresses/dress4.jpg"
+image:"image/dresses/dress4.jpg"
 },
 
 {

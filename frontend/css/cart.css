@@ -1,0 +1,231 @@
+/* ======================================
+   AI Virtual Dressing Room
+   Shopping Cart CSS
+====================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* Header */
+
+header{
+    background:#163b84;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 35px;
+    flex-wrap:wrap;
+}
+
+.logo h2{
+    font-size:28px;
+}
+
+nav{
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ffd700;
+}
+
+/* Cart */
+
+.cart-section{
+    width:95%;
+    max-width:1300px;
+    margin:40px auto;
+}
+
+.cart-section h1{
+    color:#163b84;
+    text-align:center;
+}
+
+.cart-section p{
+    text-align:center;
+    color:#666;
+    margin:15px 0 30px;
+}
+
+#cartContainer{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* Card */
+
+.cart-card{
+    background:white;
+    display:flex;
+    gap:25px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    align-items:center;
+}
+
+.cart-card img{
+    width:180px;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.cart-details{
+    flex:1;
+}
+
+.cart-details h2{
+    color:#163b84;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#e91e63;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+/* Quantity */
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.quantity button{
+    width:35px;
+    height:35px;
+    border:none;
+    border-radius:50%;
+    background:#163b84;
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.quantity span{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.removeBtn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.removeBtn:hover{
+    background:#b71c1c;
+}
+
+/* Summary */
+
+.summary{
+    background:white;
+    margin-top:35px;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    text-align:center;
+}
+
+.summary h2{
+    color:#163b84;
+    margin-bottom:20px;
+}
+
+#checkoutBtn{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:16px 40px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+#checkoutBtn:hover{
+    background:#218838;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.cart-card{
+    flex-direction:column;
+    text-align:center;
+}
+
+.cart-card img{
+    width:250px;
+    height:300px;
+}
+
+.quantity{
+    justify-content:center;
+}
+
+}
+
+@media(max-width:768px){
+
+header{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.logo h2{
+    font-size:24px;
+}
+
+}
+
+@media(max-width:480px){
+
+.cart-card img{
+    width:100%;
+    height:280px;
+}
+
+#checkoutBtn{
+    width:100%;
+}
+
+.quantity button{
+    width:40px;
+    height:40px;
+}
+
+}

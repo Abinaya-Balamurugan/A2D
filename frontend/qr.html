@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QR Scanner</title>
+
+<link rel="stylesheet" href="css/qr.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+<h2>AI Virtual Dressing Room</h2>
+
+</div>
+
+<a href="home.html" class="back">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</header>
+
+<section class="container">
+
+<h1>Scan QR Code</h1>
+
+<p>
+
+Scan a QR Code or Paste Shopping Link
+
+</p>
+
+<div class="scanner-box">
+
+<div id="reader"></div>
+
+</div>
+
+<div class="or">
+
+OR
+
+</div>
+
+<div class="input-box">
+
+<input
+
+type="text"
+
+id="websiteLink"
+
+placeholder="Paste Product Link Here">
+
+<button id="openBtn">
+
+Open Website
+
+</button>
+
+</div>
+
+<div class="iframe-container">
+
+<iframe
+
+id="websiteFrame"
+
+title="Website Viewer">
+
+</iframe>
+
+</div>
+
+</section>
+
+<div class="bottom-buttons">
+
+<button id="gotoTryOn">
+
+Go To Try-On
+
+</button>
+
+</div>
+
+<script src="js/qr.js"></script>
+
+</body>
+
+</html>

@@ -1,76 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>AI Virtual Try-On</title>
+    <title>AI Virtual Try-On</title>
 
-<link rel="stylesheet" href="css/tryon.css">
+    <link
+        rel="stylesheet"
+        href="css/tryon.css"
+    >
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<h1>AI Virtual Try-On</h1>
 
-<div class="tryon-container">
+    <!-- ===================================== -->
+    <!-- TITLE -->
+    <!-- ===================================== -->
 
-<div class="box">
+    <h1>
+        AI Virtual Try-On
+    </h1>
 
-<h2>Your Photo</h2>
 
-<img id="userPreview"
-src="images/user-placeholder.png"
-alt="User">
+    <p class="subtitle">
+        Upload your photo and try the selected dress
+    </p>
 
-<input
-type="file"
-id="userImage"
-accept="image/*">
+
+    <!-- ===================================== -->
+    <!-- TRY ON CONTAINER -->
+    <!-- ===================================== -->
+
+    <div class="tryon-container">
+
+
+        <!-- ================================= -->
+        <!-- USER IMAGE -->
+        <!-- ================================= -->
+
+        <div class="box">
+
+            <h2>
+                Your Photo
+            </h2>
+
+
+            <img
+                id="userPreview"
+                src="image/user-placeholder.png"
+                alt="Your Photo"
+            >
+
+
+            <input
+                type="file"
+                id="userImage"
+                accept="image/png,image/jpeg,image/jpg,image/webp"
+            >
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- SELECTED DRESS -->
+        <!-- ================================= -->
+
+        <div class="box">
+
+            <h2>
+                Selected Dress
+            </h2>
+
+
+            <img
+                id="dressPreview"
+                src="image/dress-placeholder.png"
+                alt="Selected Dress"
+            >
+
+
+            <p id="dressNameText">
+                No dress selected
+            </p>
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- RESULT -->
+        <!-- ================================= -->
+
+        <div class="box">
+
+            <h2>
+                Try-On Result
+            </h2>
+
+
+            <img
+                id="resultPreview"
+                src="image/user-placeholder.png"
+                alt="Try-On Result"
+            >
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- GENERATE -->
+    <!-- ===================================== -->
+
+    <button
+        id="generateBtn"
+        type="button"
+    >
+
+        Generate Try-On
+
+    </button>
+
+
+    <!-- ===================================== -->
+    <!-- LOADING -->
+    <!-- ===================================== -->
+
+    <div
+        id="loading"
+        style="display:none;"
+    >
+
+        <div class="loader"></div>
+
+        <p>
+            Processing...
+        </p>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- STATUS -->
+    <!-- ===================================== -->
+
+    <p
+        id="status"
+        class="status"
+    ></p>
+
 
 </div>
 
-<div class="box">
 
-<h2>Selected Dress</h2>
+<script
+    src="js/tryon.js"
+></script>
 
-<img id="dressPreview">
-
-</div>
-
-<div class="box">
-
-<h2>Result</h2>
-
-<img id="resultPreview"
-src="images/user-placeholder.png">
-
-</div>
-
-</div>
-
-<button id="generateBtn">
-
-Generate Try-On
-
-</button>
-
-<div id="loading">
-
-<img src="images/loading.gif">
-
-<p>Generating AI Image...</p>
-
-</div>
-
-</div>
-
-<script src="js/tryon.js"></script>
 
 </body>
+
 </html>

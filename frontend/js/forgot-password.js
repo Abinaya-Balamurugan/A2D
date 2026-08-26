@@ -1,44 +1,153 @@
-document.getElementById("forgotForm").addEventListener("submit", async function(e){
+// ==========================================
+// FORGOT PASSWORD
+// SEND EMAIL OTP
+// ==========================================
+
+const forgotForm =
+    document.getElementById("forgotForm");
+
+
+forgotForm.addEventListener("submit", async function (e) {
 
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
 
-    try{
+    // ======================================
+    // GET EMAIL
+    // ======================================
 
-        const response = await fetch("http://localhost:5000/api/forgot-password",{
+    const email =
+        document.getElementById("email").value.trim();
 
-            method:"POST",
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+    // ======================================
+    // CHECK EMAIL
+    // ======================================
 
-            body:JSON.stringify({
+    if (email === "") {
+
+        alert("Please enter your email.");
+
+        return;
+
+    }
+
+
+    // ======================================
+    // BUTTON
+    // ======================================
+
+    const button =
+        forgotForm.querySelector("button");
+
+    button.disabled = true;
+
+    button.textContent = "Sending OTP...";
+
+
+    try {
+
+        // ==================================
+        // SEND OTP
+        // ==================================
+
+        const response = await fetch(
+            "http://localhost:5000/api/otp/send-email-otp",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    email: email
+
+                })
+
+            }
+        );
+
+
+        // ==================================
+        // GET RESPONSE
+        // ==================================
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "OTP Response:",
+            result
+        );
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        if (result.success) {
+
+            // Save email temporarily
+            localStorage.setItem(
+                "resetEmail",
                 email
-            })
+            );
 
-        });
 
-        const result = await response.json();
+            alert(
+                "OTP sent successfully to your email."
+            );
 
-        alert(result.message);
 
-        if(result.success){
+            // Go to OTP page
+            window.location.href =
+                "verify-otp.html";
 
-            localStorage.setItem("resetEmail",email);
+        }
 
-            window.location.href="verify-otp.html";
+
+        // ==================================
+        // ERROR
+        // ==================================
+
+        else {
+
+            alert(result.message);
+
+            button.disabled = false;
+
+            button.textContent = "Send OTP";
 
         }
 
     }
 
-    catch(error){
 
-        console.error(error);
+    // ======================================
+    // SERVER CONNECTION ERROR
+    // ======================================
 
-        alert("Unable to connect to the server.");
+    catch (error) {
+
+        console.error(
+            "Forgot Password Error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to the backend server."
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Send OTP";
 
     }
 

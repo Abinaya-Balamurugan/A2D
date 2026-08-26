@@ -1,0 +1,335 @@
+/* ==========================================
+   AI Virtual Dressing Room
+   Product Viewer CSS
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+}
+
+/* Header */
+
+header{
+
+    background:#163b84;
+
+    color:#fff;
+
+    padding:18px 40px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+}
+
+.logo h2{
+
+    font-size:28px;
+
+}
+
+.back{
+
+    color:white;
+
+    text-decoration:none;
+
+    background:#0d2555;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+}
+
+.back:hover{
+
+    background:#081b40;
+
+}
+
+/* Main Container */
+
+.container{
+
+    max-width:1300px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+/* Product Card */
+
+.product-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    display:flex;
+
+    gap:40px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+/* Image */
+
+.image-section{
+
+    flex:1;
+
+    text-align:center;
+
+}
+
+.image-section img{
+
+    width:100%;
+
+    max-width:500px;
+
+    border-radius:15px;
+
+    transition:.4s;
+
+}
+
+.image-section img:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* Details */
+
+.details-section{
+
+    flex:1;
+
+}
+
+.details-section h1{
+
+    color:#163b84;
+
+    margin-bottom:20px;
+
+    font-size:34px;
+
+}
+
+.price{
+
+    font-size:32px;
+
+    color:#d61f45;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
+}
+
+.description{
+
+    color:#555;
+
+    font-size:18px;
+
+    line-height:30px;
+
+    margin-bottom:20px;
+
+}
+
+.details-section ul{
+
+    margin-left:25px;
+
+    margin-bottom:30px;
+
+}
+
+.details-section li{
+
+    margin-bottom:12px;
+
+    font-size:18px;
+
+}
+
+/* Buttons */
+
+.buttons{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.buttons button{
+
+    padding:15px 30px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#tryOnBtn{
+
+    background:#163b84;
+
+    color:white;
+
+}
+
+#tryOnBtn:hover{
+
+    background:#0d2555;
+
+}
+
+#wishlistBtn{
+
+    background:#e91e63;
+
+    color:white;
+
+}
+
+#wishlistBtn:hover{
+
+    background:#c2185b;
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.product-card{
+
+    flex-direction:column;
+
+}
+
+.image-section img{
+
+    max-width:400px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+header{
+
+    justify-content:center;
+
+    gap:15px;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+}
+
+.details-section h1{
+
+    font-size:28px;
+
+}
+
+.price{
+
+    font-size:26px;
+
+}
+
+.description{
+
+    font-size:16px;
+
+}
+
+.buttons{
+
+    flex-direction:column;
+
+}
+
+.buttons button{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.container{
+
+    padding:10px;
+
+}
+
+.product-card{
+
+    padding:20px;
+
+}
+
+.image-section img{
+
+    max-width:100%;
+
+}
+
+.details-section h1{
+
+    font-size:24px;
+
+}
+
+.price{
+
+    font-size:24px;
+
+}
+
+}

@@ -1,138 +1,376 @@
-const otpInputs = document.querySelectorAll(".otp");
+// ==========================================
+// VERIFY OTP PAGE
+// AI Virtual Dressing Room
+// ==========================================
 
-// Auto Move Next Box
-otpInputs.forEach((input,index)=>{
 
-input.addEventListener("input",()=>{
+// ==========================================
+// OTP INPUTS
+// ==========================================
 
-if(input.value.length===1 && index<otpInputs.length-1){
+const otpInputs =
+    document.querySelectorAll(".otp");
 
-otpInputs[index+1].focus();
 
-}
+// ==========================================
+// AUTO MOVE TO NEXT BOX
+// ==========================================
 
-});
+otpInputs.forEach((input, index) => {
 
-input.addEventListener("keydown",(e)=>{
+    input.addEventListener("input", () => {
 
-if(e.key==="Backspace" && input.value==="" && index>0){
+        // Allow only numbers
+        input.value =
+            input.value.replace(/[^0-9]/g, "");
 
-otpInputs[index-1].focus();
 
-}
+        if (
+            input.value.length === 1 &&
+            index < otpInputs.length - 1
+        ) {
 
-});
+            otpInputs[index + 1].focus();
 
-});
+        }
 
-// Countdown
+    });
 
-let seconds=60;
 
-const countdown=document.getElementById("countdown");
+    // ======================================
+    // BACKSPACE
+    // ======================================
 
-const resendBtn=document.getElementById("resendBtn");
+    input.addEventListener("keydown", (e) => {
 
-const timer=setInterval(()=>{
+        if (
+            e.key === "Backspace" &&
+            input.value === "" &&
+            index > 0
+        ) {
 
-seconds--;
+            otpInputs[index - 1].focus();
 
-countdown.innerHTML=`Resend OTP in ${seconds}s`;
+        }
 
-if(seconds<=0){
-
-clearInterval(timer);
-
-countdown.innerHTML="Didn't receive OTP?";
-
-resendBtn.disabled=false;
-
-}
-
-},1000);
-
-// Verify OTP
-
-document.getElementById("verifyBtn")
-
-.addEventListener("click",async()=>{
-
-const email=localStorage.getItem("resetEmail");
-
-let otp="";
-
-otpInputs.forEach(box=>{
-
-otp+=box.value;
+    });
 
 });
 
-try{
 
-const response=await fetch("http://localhost:5000/api/verify-otp",{
+// ==========================================
+// COUNTDOWN
+// ==========================================
 
-method:"POST",
+let seconds = 60;
 
-headers:{
+const countdown =
+    document.getElementById("countdown");
 
-"Content-Type":"application/json"
+const resendBtn =
+    document.getElementById("resendBtn");
 
-},
 
-body:JSON.stringify({
+const timer = setInterval(() => {
 
-email,
+    seconds--;
 
-otp
+    countdown.innerHTML =
+        `Resend OTP in ${seconds}s`;
 
-})
 
-});
+    if (seconds <= 0) {
 
-const result=await response.json();
+        clearInterval(timer);
 
-alert(result.message);
+        countdown.innerHTML =
+            "Didn't receive OTP?";
 
-if(result.success){
+        resendBtn.disabled = false;
 
-window.location.href="reset-password.html";
+    }
 
-}
+}, 1000);
 
-}catch(err){
 
-alert("Server Error");
+// ==========================================
+// VERIFY OTP
+// ==========================================
 
-}
+document
+    .getElementById("verifyBtn")
+    .addEventListener("click", async () => {
 
-});
 
-// Resend OTP
+        // Get email
+        const email =
+            localStorage.getItem("resetEmail");
 
-resendBtn.addEventListener("click",async()=>{
 
-const email=localStorage.getItem("resetEmail");
+        // Check email
+        if (!email) {
 
-await fetch("http://localhost:5000/api/forgot-password",{
+            alert(
+                "Email not found. Please request OTP again."
+            );
 
-method:"POST",
+            window.location.href =
+                "forgot-password.html";
 
-headers:{
+            return;
 
-"Content-Type":"application/json"
+        }
 
-},
 
-body:JSON.stringify({
+        // Build OTP
+        let otp = "";
 
-email
+        otpInputs.forEach((box) => {
 
-})
+            otp += box.value;
 
-});
+        });
 
-alert("OTP Sent Again");
 
-location.reload();
+        // Check OTP length
+        if (otp.length !== 6) {
 
-});
+            alert(
+                "Please enter the complete 6-digit OTP."
+            );
+
+            return;
+
+        }
+
+
+        // Verify button
+        const verifyBtn =
+            document.getElementById("verifyBtn");
+
+        verifyBtn.disabled = true;
+
+        verifyBtn.textContent =
+            "Verifying...";
+
+
+        try {
+
+            // ==================================
+            // VERIFY OTP API
+            // ==================================
+
+            const response = await fetch(
+                "http://localhost:5000/api/otp/verify-email-otp",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        email: email,
+
+                        otp: otp
+
+                    })
+
+                }
+            );
+
+
+            const result =
+                await response.json();
+
+
+            console.log(
+                "OTP Verification:",
+                result
+            );
+
+
+            // ==================================
+            // SUCCESS
+            // ==================================
+
+            if (result.success) {
+
+                alert(
+                    "OTP verified successfully!"
+                );
+
+
+                // Save verification status
+                localStorage.setItem(
+                    "otpVerified",
+                    "true"
+                );
+
+
+                // Go to reset password
+                window.location.href =
+                    "reset-password.html";
+
+            }
+
+
+            // ==================================
+            // FAILED
+            // ==================================
+
+            else {
+
+                alert(result.message);
+
+                verifyBtn.disabled = false;
+
+                verifyBtn.textContent =
+                    "Verify OTP";
+
+            }
+
+        }
+
+
+        // ======================================
+        // SERVER ERROR
+        // ======================================
+
+        catch (error) {
+
+            console.error(
+                "OTP Verification Error:",
+                error
+            );
+
+            alert(
+                "Unable to connect to the server."
+            );
+
+
+            verifyBtn.disabled = false;
+
+            verifyBtn.textContent =
+                "Verify OTP";
+
+        }
+
+    });
+
+
+// ==========================================
+// RESEND OTP
+// ==========================================
+
+resendBtn.addEventListener(
+    "click",
+    async () => {
+
+
+        const email =
+            localStorage.getItem("resetEmail");
+
+
+        if (!email) {
+
+            alert(
+                "Email not found. Please start again."
+            );
+
+            window.location.href =
+                "forgot-password.html";
+
+            return;
+
+        }
+
+
+        resendBtn.disabled = true;
+
+        resendBtn.textContent =
+            "Sending...";
+
+
+        try {
+
+            // ==================================
+            // SEND OTP AGAIN
+            // ==================================
+
+            const response = await fetch(
+                "http://localhost:5000/api/otp/send-email-otp",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        email: email
+
+                    })
+
+                }
+            );
+
+
+            const result =
+                await response.json();
+
+
+            if (result.success) {
+
+                alert(
+                    "New OTP sent successfully!"
+                );
+
+
+                // Restart page
+                location.reload();
+
+            }
+
+            else {
+
+                alert(result.message);
+
+                resendBtn.disabled = false;
+
+                resendBtn.textContent =
+                    "Resend OTP";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Resend OTP Error:",
+                error
+            );
+
+            alert(
+                "Unable to connect to the server."
+            );
+
+
+            resendBtn.disabled = false;
+
+            resendBtn.textContent =
+                "Resend OTP";
+
+        }
+
+    }
+);

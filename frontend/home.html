@@ -1,143 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>AI Virtual Dressing Room</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="css/home.css">
+    <title>AI Virtual Dressing Room</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/home.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
-<div class="logo-section">
+    <div class="logo-section">
 
-<img src="image/logo.png">
+        <img src="image/logo.png"
+             alt="Logo">
 
-<h2>AI Virtual Dressing Room</h2>
+        <h2>
+            AI Virtual Dressing Room
+        </h2>
 
-</div>
+    </div>
 
-<div class="profile">
 
-<i class="fa-solid fa-user-circle"></i>
+    <div class="profile">
 
-<button onclick="logout()">Logout</button>
+        <i class="fa-solid fa-user-circle"></i>
 
-</div>
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
 
 </header>
 
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main>
 
-<h1>Welcome 👋</h1>
+    <h1>
+        Welcome 👋
+    </h1>
 
-<p>Select any feature below</p>
+    <p>
+        Select any feature below
+    </p>
 
-<div class="grid">
 
-<a href="scanner.html" class="card">
 
-<i class="fa-solid fa-qrcode"></i>
+    <!-- =====================================
+         FEATURE CARDS
+    ====================================== -->
 
-<h3>QR Scanner</h3>
+    <div class="grid">
 
-<p>Scan retailer QR</p>
 
-</a>
+        <!-- QR SCANNER -->
 
-<a href="link.html" class="card">
+        <a href="scanner.html"
+           class="card">
 
-<i class="fa-solid fa-link"></i>
+            <i class="fa-solid fa-qrcode"></i>
 
-<h3>Website Link</h3>
+            <h3>
+                QR Scanner
+            </h3>
 
-<p>Paste shopping link</p>
+            <p>
+                Scan retailer QR
+            </p>
 
-</a>
+        </a>
 
-<a href="tryon.html" class="card">
 
-<i class="fa-solid fa-shirt"></i>
 
-<h3>AI Try-On</h3>
+        <!-- WEBSITE LINK -->
 
-<p>Upload & Try Dress</p>
+        <a href="link.html"
+           class="card">
 
-</a>
+            <i class="fa-solid fa-link"></i>
 
-<a href="history.html" class="card">
+            <h3>
+                Website Link
+            </h3>
 
-<i class="fa-solid fa-clock-rotate-left"></i>
+            <p>
+                Paste shopping link
+            </p>
 
-<h3>History</h3>
+        </a>
 
-<p>View previous try-ons</p>
 
-</a>
 
-<a href="wishlist.html" class="card">
+        <!-- AI TRY ON -->
 
-<i class="fa-solid fa-heart"></i>
+        <a href="#dress-section"
+           class="card">
 
-<h3>Wishlist</h3>
+            <i class="fa-solid fa-shirt"></i>
 
-<p>Saved Dresses</p>
+            <h3>
+                AI Try-On
+            </h3>
 
-</a>
+            <p>
+                Select a dress
+            </p>
 
-<a href="profile.html" class="card">
+        </a>
 
-<i class="fa-solid fa-user"></i>
 
-<h3>Profile</h3>
 
-<p>Manage account</p>
+        <!-- HISTORY -->
 
-</a>
+        <a href="history.html"
+           class="card">
 
-</div>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <h3>
+                History
+            </h3>
+
+            <p>
+                View previous try-ons
+            </p>
+
+        </a>
+
+
+
+        <!-- WISHLIST -->
+
+        <a href="wishlist.html"
+           class="card">
+
+            <i class="fa-solid fa-heart"></i>
+
+            <h3>
+                Wishlist
+            </h3>
+
+            <p>
+                Saved Dresses
+            </p>
+
+        </a>
+
+
+
+        <!-- PROFILE -->
+
+        <a href="profile.html"
+           class="card">
+
+            <i class="fa-solid fa-user"></i>
+
+            <h3>
+                Profile
+            </h3>
+
+            <p>
+                Manage account
+            </p>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================
+         DRESS COLLECTION
+    ====================================== -->
+
+    <section id="dress-section"
+             class="dress-section">
+
+        <h2>
+            Choose Your Dress 👗
+        </h2>
+
+        <p>
+            Select a dress to continue with AI Virtual Try-On
+        </p>
+
+
+
+        <div class="dress-grid">
+
+
+            <!-- DRESS 1 -->
+
+            <div class="dress-card">
+
+                <img
+                    src="image/dresses/dress1.jpg"
+                    alt="Dress 1">
+
+                <h3>
+                    Dress 1
+                </h3>
+
+                <button
+                    onclick="selectDress('dress1.jpg')">
+
+                    Try This Dress
+
+                </button>
+
+            </div>
+
+
+
+            <!-- DRESS 2 -->
+
+            <div class="dress-card">
+
+                <img
+                    src="image/dresses/dress2.jpg"
+                    alt="Dress 2">
+
+                <h3>
+                    Dress 2
+                </h3>
+
+                <button
+                    onclick="selectDress('dress2.jpg')">
+
+                    Try This Dress
+
+                </button>
+
+            </div>
+
+
+
+            <!-- DRESS 3 -->
+
+            <div class="dress-card">
+
+                <img
+                    src="image/dresses/dress3.jpg"
+                    alt="Dress 3">
+
+                <h3>
+                    Dress 3
+                </h3>
+
+                <button
+                    onclick="selectDress('dress3.jpg')">
+
+                    Try This Dress
+
+                </button>
+
+            </div>
+
+
+
+            <!-- DRESS 4 -->
+
+            <div class="dress-card">
+
+                <img
+                    src="image/dresses/dress4.jpg"
+                    alt="Dress 4">
+
+                <h3>
+                    Dress 4
+                </h3>
+
+                <button
+                    onclick="selectDress('dress4.jpg')">
+
+                    Try This Dress
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
 
 </main>
 
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer>
 
-<a href="home.html">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
+    <a href="home.html">
 
-<a href="scanner.html">
-<i class="fa-solid fa-qrcode"></i>
-Scan
-</a>
+        <i class="fa-solid fa-house"></i>
 
-<a href="tryon.html">
-<i class="fa-solid fa-shirt"></i>
-Try-On
-</a>
+        Home
 
-<a href="history.html">
-<i class="fa-solid fa-clock"></i>
-History
-</a>
+    </a>
 
-<a href="profile.html">
-<i class="fa-solid fa-user"></i>
-Profile
-</a>
+
+    <a href="scanner.html">
+
+        <i class="fa-solid fa-qrcode"></i>
+
+        Scan
+
+    </a>
+
+
+    <a href="#dress-section">
+
+        <i class="fa-solid fa-shirt"></i>
+
+        Try-On
+
+    </a>
+
+
+    <a href="history.html">
+
+        <i class="fa-solid fa-clock"></i>
+
+        History
+
+    </a>
+
+
+    <a href="profile.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        Profile
+
+    </a>
 
 </footer>
+
+
 
 <script src="js/home.js"></script>
 
 </body>
+
 </html>

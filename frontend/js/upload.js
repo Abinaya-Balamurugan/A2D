@@ -10,7 +10,7 @@ if(file){
 
 preview.src=URL.createObjectURL(file);
 
-localStorage.setItem("userImage",preview.src);
+localStorage.setItem("userimage",preview.src);
 
 }
 
