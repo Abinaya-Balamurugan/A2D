@@ -1,266 +1,96 @@
-// ==========================================
-// LOGIN PAGE
-// AI VIRTUAL DRESSING ROOM
-// ==========================================
+const API_BASE_URL = "https://petite-papers-enjoy.loca.lt";
 
+document.addEventListener("DOMContentLoaded", () => {
 
-// ==========================================
-// BACKEND URL
-// ==========================================
+    const loginForm = document.getElementById("loginForm");
 
-// Node.js backend - port 5000
-const API_BASE_URL = "https://wicked-mirrors-lose.loca.lt";
+    if (!loginForm) {
+        console.error("Login form not found!");
+        return;
+    }
 
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-// ==========================================
-// PASSWORD SHOW / HIDE
-// ==========================================
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
 
-const togglePassword = document.getElementById("togglePassword");
-const password = document.getElementById("password");
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
-if (togglePassword && password) {
-
-    togglePassword.addEventListener("click", function () {
-
-        if (password.type === "password") {
-
-            password.type = "text";
-
-            togglePassword.innerHTML =
-                '<i class="fa-solid fa-eye-slash"></i>';
-
-        } else {
-
-            password.type = "password";
-
-            togglePassword.innerHTML =
-                '<i class="fa-solid fa-eye"></i>';
-
-        }
-
-    });
-
-}
-
-
-// ==========================================
-// LOGIN FORM
-// ==========================================
-
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-
-    loginForm.addEventListener("submit", async function (e) {
-
-        // Prevent normal form submission
-        e.preventDefault();
-
-
-        // ==================================
-        // GET VALUES
-        // ==================================
-
-        const emailElement =
-            document.getElementById("email");
-
-        const passwordElement =
-            document.getElementById("password");
-
-
-        const email =
-            emailElement.value.trim();
-
-        const pass =
-            passwordElement.value;
-
-
-        // ==================================
-        // CHECK EMPTY FIELDS
-        // ==================================
-
-        if (email === "" || pass === "") {
-
-            alert("Please fill all fields.");
-
+        // Check empty fields
+        if (!email || !password) {
+            alert("Please enter your email and password.");
             return;
-
         }
-
-
-        // ==================================
-        // LOGIN BUTTON
-        // ==================================
-
-        const loginButton =
-            loginForm.querySelector(
-                "button[type='submit']"
-            );
-
-
-        const originalText =
-            loginButton.textContent;
-
-
-        loginButton.disabled = true;
-
-        loginButton.textContent = "Logging in...";
-
-
-        // ==================================
-        // SEND LOGIN REQUEST
-        // ==================================
 
         try {
+            console.log("Connecting to backend...");
+            console.log("API:", API_BASE_URL);
 
-            console.log(
-                "Connecting to:",
-                API_BASE_URL + "/api/auth/login"
-            );
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
 
+            console.log("Response status:", response.status);
 
-            const response = await fetch(
-                API_BASE_URL + "/api/auth/login",
-                {
+            let data;
 
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        email: email,
-
-                        password: pass
-
-                    })
-
-                }
-            );
-
-
-            // ==================================
-            // CHECK RESPONSE
-            // ==================================
-
-            console.log(
-                "HTTP Status:",
-                response.status
-            );
-
-
-            // ==================================
-            // READ RESPONSE
-            // ==================================
-
-            const result =
-                await response.json();
-
-
-            console.log(
-                "Login Response:",
-                result
-            );
-
-
-            // ==================================
-            // LOGIN SUCCESS
-            // ==================================
-
-            if (
-                response.ok &&
-                result.success
-            ) {
-
-                // Save JWT token
-                if (result.token) {
-
-                    localStorage.setItem(
-                        "token",
-                        result.token
-                    );
-
-                }
-
-
-                // Save user information
-                if (result.user) {
-
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(result.user)
-                    );
-
-                }
-
-
-                alert("Login Successful!");
-
-
-                // ==================================
-                // GO TO INTRO PAGE
-                // ==================================
-
-                window.location.href =
-                    "intro.html";
-
-
+            try {
+                data = await response.json();
+            } catch (error) {
+                console.error("Invalid server response:", error);
+                alert("Server returned an invalid response.");
                 return;
-
             }
 
+            console.log("Server response:", data);
 
-            // ==================================
-            // LOGIN FAILED
-            // ==================================
+            if (response.ok) {
 
-            alert(
-                result.message ||
-                "Invalid email or password."
-            );
+                alert(data.message || "Login successful!");
 
+                // Save user information
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                }
 
-            loginButton.disabled = false;
+                if (data.user) {
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+                }
 
-            loginButton.textContent =
-                originalText;
+                // Go to home page
+                window.location.href = "home.html";
 
+            } else {
+
+                alert(
+                    data.message ||
+                    data.error ||
+                    "Invalid email or password."
+                );
+            }
 
         } catch (error) {
 
-            // ==================================
-            // CONNECTION ERROR
-            // ==================================
-
-            console.error(
-                "Login Error:",
-                error
-            );
-
+            console.error("LOGIN ERROR:", error);
 
             alert(
                 "Cannot connect to the server.\n\n" +
-                "Please make sure the Node.js backend " +
-                "and LocalTunnel are running."
+                "Please make sure your backend and LocalTunnel are running."
             );
-
-
-            loginButton.disabled = false;
-
-            loginButton.textContent =
-                originalText;
-
         }
-
     });
 
-}
+});
