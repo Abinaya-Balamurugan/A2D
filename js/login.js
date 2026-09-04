@@ -5,6 +5,13 @@
 
 
 // ==========================================
+// BACKEND URL
+// ==========================================
+
+const API_URL = "https://brave-bags-relax.loca.lt";
+
+
+// ==========================================
 // PASSWORD SHOW / HIDE
 // ==========================================
 
@@ -15,25 +22,29 @@ const password =
     document.getElementById("password");
 
 
-togglePassword.addEventListener("click", () => {
+if (togglePassword && password) {
 
-    if (password.type === "password") {
+    togglePassword.addEventListener("click", () => {
 
-        password.type = "text";
+        if (password.type === "password") {
 
-        togglePassword.innerHTML =
-            '<i class="fa-solid fa-eye-slash"></i>';
+            password.type = "text";
 
-    } else {
+            togglePassword.innerHTML =
+                '<i class="fa-solid fa-eye-slash"></i>';
 
-        password.type = "password";
+        } else {
 
-        togglePassword.innerHTML =
-            '<i class="fa-solid fa-eye"></i>';
+            password.type = "password";
 
-    }
+            togglePassword.innerHTML =
+                '<i class="fa-solid fa-eye"></i>';
 
-});
+        }
+
+    });
+
+}
 
 
 // ==========================================
@@ -44,160 +55,211 @@ const loginForm =
     document.getElementById("loginForm");
 
 
-loginForm.addEventListener("submit", async function (e) {
+if (loginForm) {
 
-    // Stop normal form submission
-    e.preventDefault();
+    loginForm.addEventListener(
+        "submit",
+        async function (e) {
 
-
-    // ======================================
-    // GET VALUES
-    // ======================================
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const pass =
-        document.getElementById("password").value;
+            // Stop normal form submission
+            e.preventDefault();
 
 
-    // ======================================
-    // CHECK EMPTY FIELDS
-    // ======================================
+            // ======================================
+            // GET VALUES
+            // ======================================
 
-    if (email === "" || pass === "") {
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
 
-        alert("Please fill all fields.");
-
-        return;
-
-    }
-
-
-    // ======================================
-    // LOGIN BUTTON
-    // ======================================
-
-    const loginButton =
-        loginForm.querySelector("button[type='submit']");
-
-    loginButton.disabled = true;
-
-    loginButton.textContent = "Logging in...";
+            const pass =
+                document
+                    .getElementById("password")
+                    .value;
 
 
-    try {
+            // ======================================
+            // CHECK EMPTY FIELDS
+            // ======================================
 
-        // ==================================
-        // SEND LOGIN REQUEST TO BACKEND
-        // ==================================
+            if (email === "" || pass === "") {
 
-        const response = await fetch(
-            "http://localhost:5000/api/auth/login",
-            {
+                alert("Please fill all fields.");
 
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
-
-                body: JSON.stringify({
-
-                    email: email,
-
-                    password: pass
-
-                })
+                return;
 
             }
-        );
 
 
-        // ==================================
-        // GET BACKEND RESPONSE
-        // ==================================
+            // ======================================
+            // LOGIN BUTTON
+            // ======================================
 
-        const result =
-            await response.json();
+            const loginButton =
+                loginForm.querySelector(
+                    "button[type='submit']"
+                );
 
+            loginButton.disabled = true;
 
-        console.log("Login Response:", result);
-
-
-        // ==================================
-        // SUCCESS
-        // ==================================
-
-        if (result.success) {
-
-            // Save JWT token
-            localStorage.setItem(
-                "token",
-                result.token
-            );
+            loginButton.textContent =
+                "Logging in...";
 
 
-            // Save user information
-            localStorage.setItem(
-                "user",
-                JSON.stringify(result.user)
-            );
+            try {
+
+                console.log(
+                    "Connecting to:",
+                    API_URL + "/api/auth/login"
+                );
 
 
-            alert("Login Successful!");
+                // ==================================
+                // SEND LOGIN REQUEST
+                // ==================================
+
+                const response =
+                    await fetch(
+                        API_URL +
+                        "/api/auth/login",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body: JSON.stringify({
+
+                                email: email,
+
+                                password: pass
+
+                            })
+
+                        }
+                    );
 
 
-            // =================================
-            // GO TO INTRO PAGE
-            // =================================
+                // ==================================
+                // GET RESPONSE
+                // ==================================
 
-            window.location.href =
-                "intro.html";
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    "Login Response:",
+                    result
+                );
+
+
+                // ==================================
+                // SUCCESS
+                // ==================================
+
+                if (
+                    response.ok &&
+                    result.success
+                ) {
+
+                    // Save JWT token
+                    if (result.token) {
+
+                        localStorage.setItem(
+                            "token",
+                            result.token
+                        );
+
+                    }
+
+
+                    // Save user information
+                    if (result.user) {
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(
+                                result.user
+                            )
+                        );
+
+                    }
+
+
+                    alert(
+                        "Login Successful!"
+                    );
+
+
+                    // =================================
+                    // GO TO INTRO PAGE
+                    // =================================
+
+                    window.location.href =
+                        "intro.html";
+
+                }
+
+
+                // ==================================
+                // LOGIN FAILED
+                // ==================================
+
+                else {
+
+                    alert(
+                        result.message ||
+                        "Invalid email or password."
+                    );
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }
+
+
+            // ======================================
+            // SERVER CONNECTION ERROR
+            // ======================================
+
+            catch (error) {
+
+                console.error(
+                    "Login Error:",
+                    error
+                );
+
+
+                alert(
+                    "Cannot connect to the server.\n\n" +
+                    "Please make sure your backend and " +
+                    "LocalTunnel are running."
+                );
+
+
+                loginButton.disabled =
+                    false;
+
+                loginButton.textContent =
+                    "Login";
+
+            }
 
         }
+    );
 
-
-        // ==================================
-        // LOGIN FAILED
-        // ==================================
-
-        else {
-
-            alert(result.message);
-
-            loginButton.disabled = false;
-
-            loginButton.textContent = "Login";
-
-        }
-
-    }
-
-
-    // ======================================
-    // SERVER CONNECTION ERROR
-    // ======================================
-
-    catch (error) {
-
-        console.error(
-            "Login Error:",
-            error
-        );
-
-        alert(
-            "Cannot connect to the server. " +
-            "Please make sure the backend is running."
-        );
-
-
-        loginButton.disabled = false;
-
-        loginButton.textContent = "Login";
-
-    }
-
-});
+}
