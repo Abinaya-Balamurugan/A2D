@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VestiAI — AI Virtual Dress Recommendation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="brand" href="#home"><span class="brand-mark">V</span> Vesti<span>AI</span></a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#recommend">AI Recommend</a>
+    <a href="#tryon">Virtual Try-On</a>
+    <a href="#stores">Retail Stores</a>
+    <a href="#about">About</a>
+  </nav>
+  <button class="nav-btn" onclick="openAuth()">Login</button>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">AI-POWERED FASHION • ONLINE + OFFLINE</p>
+    <h1>Find the outfit.<br><span>Try it virtually.</span><br>Buy with confidence.</h1>
+    <p class="hero-text">Upload your photo, tell us your style, and let AI recommend outfits that match your preferences, occasion and budget.</p>
+    <div class="hero-actions">
+      <button class="primary" onclick="document.querySelector('#tryon').scrollIntoView({behavior:'smooth'})">Start Virtual Try-On</button>
+      <button class="secondary" onclick="document.querySelector('#recommend').scrollIntoView({behavior:'smooth'})">Get AI Recommendations</button>
+    </div>
+    <div class="trust-row">
+      <span>✓ Online shopping</span><span>✓ Retail-store QR</span><span>✓ Size-aware</span><span>✓ Privacy focused</span>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="phone">
+      <div class="phone-top">VestiAI <span>AI Stylist</span></div>
+      <div class="model-placeholder">👗</div>
+      <div class="ai-chip">✦ AI MATCH 96%</div>
+      <div class="mini-product"><div class="mini-img">✦</div><div><b>Best Match</b><small>Pastel Floral Dress</small><small>Size M • ₹1,899</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div><b>AI</b><span>Style matching</span></div>
+  <div><b>2-WAY</b><span>Online + offline retail</span></div>
+  <div><b>QR</b><span>In-store access</span></div>
+  <div><b>24/7</b><span>Digital styling</span></div>
+</section>
+
+<section id="recommend" class="section">
+  <div class="section-heading"><p class="eyebrow">PERSONAL STYLIST</p><h2>AI Dress Recommendation</h2><p>Choose your preferences and get a personalized shortlist.</p></div>
+  <div class="recommend-box">
+    <div class="form-grid">
+      <label>Gender
+        <select id="gender"><option>Any</option><option>Women</option><option>Men</option><option>Unisex</option></select>
+      </label>
+      <label>Clothing
+        <select id="type"><option>Any</option><option>Dress</option><option>Kurti</option><option>Gown</option><option>Shirt</option><option>Blazer</option><option>Jacket</option></select>
+      </label>
+      <label>Preferred Color
+        <select id="color"><option>Any</option><option>Blue</option><option>Black</option><option>Pink</option><option>Rose</option><option>White</option></select>
+      </label>
+      <label>Occasion
+        <select id="occasion"><option>Everyday</option><option>College</option><option>Office</option><option>Party</option><option>Wedding</option><option>Casual</option></select>
+      </label>
+      <label>Maximum Budget
+        <input id="budget" type="number" placeholder="₹ 3000" min="0">
+      </label>
+    </div>
+    <button class="primary full" onclick="getRecommendations()">✦ Generate AI Recommendations</button>
+  </div>
+  <div id="recommendations" class="product-grid"></div>
+</section>
+
+<section id="tryon" class="section alt">
+  <div class="section-heading"><p class="eyebrow">VIRTUAL TRY-ON</p><h2>See the outfit on you</h2><p>Upload a clear full-body image and select a garment.</p></div>
+  <div class="tryon-layout">
+    <div class="upload-card">
+      <div id="preview" class="upload-preview"><span>📷</span><b>Upload Full-Body Photo</b><small>JPG, PNG • clear front-facing photo</small></div>
+      <input id="userImage" type="file" accept="image/*" onchange="previewImage(event)">
+      <label for="userImage" class="upload-button">Choose Photo</label>
+      <select id="dressSelect" class="dress-select"></select>
+      <button class="primary full" onclick="runTryOn()">✦ Try Outfit Virtually</button>
+      <p id="tryonStatus" class="status"></p>
+    </div>
+    <div class="result-card">
+      <div class="result-head"><span>AI TRY-ON RESULT</span><span class="live">● DEMO</span></div>
+      <div id="tryonResult" class="tryon-result"><div class="result-icon">✨</div><h3>Your virtual look appears here</h3><p>Upload a photo and choose an outfit to start.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading"><p class="eyebrow">SHOPPING EXPERIENCE</p><h2>One platform. Two retail journeys.</h2></div>
+  <div class="journey-grid">
+    <div class="journey"><div class="journey-icon">🛍️</div><h3>Online Retail</h3><p>Browse products → AI recommendation → virtual try-on → check size → visit retailer link.</p><button class="text-btn" onclick="alert('Demo: Online retailer links will open here.')">Explore Online →</button></div>
+    <div class="journey"><div class="journey-icon">▦</div><h3>Offline Retail</h3><p>Scan the store QR → upload photo → try store stock virtually → receive size and style suggestions.</p><button class="text-btn" onclick="showQR()">View Store QR →</button></div>
+  </div>
+</section>
+
+<section id="stores" class="section store-section">
+  <div class="store-copy"><p class="eyebrow">FOR RETAILERS</p><h2>Turn your store into an AI fashion experience.</h2><p>Retailers can upload their catalog, connect products, generate QR access and help customers discover outfits without changing the physical shopping experience.</p><ul><li>✓ Upload product stock</li><li>✓ Product-wise QR codes</li><li>✓ AI recommendation from store catalog</li><li>✓ Size and availability display</li><li>✓ Customer preference analytics</li></ul><button class="primary" onclick="openRetailer()">Register Your Store</button></div>
+  <div class="qr-card"><div class="qr">▦</div><b>Scan to Try In-Store</b><span>Demo Store • Fashion AI Zone</span></div>
+</section>
+
+<section id="about" class="section">
+  <div class="section-heading"><p class="eyebrow">HOW IT WORKS</p><h2>From photo to perfect outfit</h2></div>
+  <div class="steps">
+    <div><span>01</span><h3>Upload</h3><p>Customer uploads a full-body image.</p></div>
+    <div><span>02</span><h3>Understand</h3><p>AI considers style, color, occasion and size preferences.</p></div>
+    <div><span>03</span><h3>Recommend</h3><p>AI ranks suitable garments from retailer catalogs.</p></div>
+    <div><span>04</span><h3>Try & Shop</h3><p>Virtual try-on and product/retailer access complete the journey.</p></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="brand"><span class="brand-mark">V</span> Vesti<span>AI</span></div><p>AI Virtual Dress Recommendation & Virtual Try-On • Online + Offline Retail</p><span>© 2026 VestiAI</span></footer>
+
+<div id="authModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><h2>Welcome to VestiAI</h2><p>Create an account or sign in to save your recommendations.</p><input placeholder="Email address"><input type="password" placeholder="Password"><button class="primary full" onclick="closeModal()">Continue</button></div></div>
+<div id="retailModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><h2>Retailer Registration</h2><p>Demo form for stores and fashion retailers.</p><input placeholder="Store name"><input placeholder="Business email"><input placeholder="Phone number"><button class="primary full" onclick="alert('Demo retailer registration submitted!');closeModal()">Register Store</button></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>

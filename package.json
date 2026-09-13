@@ -1,29 +1,16 @@
 {
-  "dependencies": {
-    "jsonwebtoken": "^9.0.3",
-    "nodemailer": "^9.0.3",
-    "otp-generator": "^4.0.1"
-  },
-  "name": "ai_a2d",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "devDependencies": {
-    "nodemon": "^3.1.14"
-  },
+  "name": "ai-virtual-dress-recommendation",
+  "version": "2.0.0",
+  "description": "AI Virtual Dress Recommendation + CatVTON Virtual Try-On",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Abinaya-Balamurugan/A2D.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Abinaya-Balamurugan/A2D/issues"
-  },
-  "homepage": "https://github.com/Abinaya-Balamurugan/A2D#readme"
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
+  }
 }
