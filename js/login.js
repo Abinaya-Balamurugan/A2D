@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://petite-papers-enjoy.loca.lt";
+const API_BASE_URL = "https://your-project.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
 
